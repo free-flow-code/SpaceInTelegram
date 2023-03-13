@@ -48,7 +48,7 @@ def get_apod_photos(nasa_api_key):
     Path('./image').mkdir(exist_ok=True)
     apod_link = 'https://api.nasa.gov/planetary/apod'
     params = {'api_key': nasa_api_key,
-              'count': 3}
+              'count': 30}
     apod_response = requests.get(apod_link, params=params)
     apod_response.raise_for_status()
     for images in apod_response.json():
@@ -82,9 +82,9 @@ def get_epic_photos(nasa_api_key):
 def main():
     load_dotenv()
     nasa_api_key = os.environ['NASA_API_KEY']
-    #fetch_spacex_last_launch()
+    fetch_spacex_last_launch()
     get_apod_photos(nasa_api_key)
-    #get_epic_photos(nasa_api_key)
+    get_epic_photos(nasa_api_key)
 
 
 if __name__ == '__main__':
