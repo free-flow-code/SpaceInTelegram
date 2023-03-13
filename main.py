@@ -45,19 +45,23 @@ def fetch_spacex_last_launch():
 
 def get_apod_photos(nasa_api_key):
     """Downloads Astronomy Picture of the Day (APOD)"""
+    Path('./image').mkdir(exist_ok=True)
     apod_link = 'https://api.nasa.gov/planetary/apod'
     params = {'api_key': nasa_api_key,
-              'count': 30}
+              'count': 3}
     apod_response = requests.get(apod_link, params=params)
     apod_response.raise_for_status()
     for images in apod_response.json():
-        save_path = 'image/{}'.format(create_filename(images['url']))
+        image_response = requests.get(images['url'], params=params)
+        image_response.raise_for_status()
+        save_path = 'image/{}'.format(create_filename(link=images['url']))
         with open(save_path, 'wb') as file:
-            file.write(apod_response.content)
+            file.write(image_response.content)
 
 
 def get_epic_photos(nasa_api_key):
     """Downloads  Earth Polychromatic Imaging Camera (EPIC) photos"""
+    Path('./image').mkdir(exist_ok=True)
     all_images_link = 'https://api.nasa.gov/EPIC/api/natural/images'
     one_image_link = 'https://api.nasa.gov/EPIC/archive/natural/{}/png/{}'
     params = {'api_key': nasa_api_key}
@@ -78,9 +82,9 @@ def get_epic_photos(nasa_api_key):
 def main():
     load_dotenv()
     nasa_api_key = os.environ['NASA_API_KEY']
-    fetch_spacex_last_launch()
+    #fetch_spacex_last_launch()
     get_apod_photos(nasa_api_key)
-    get_epic_photos(nasa_api_key)
+    #get_epic_photos(nasa_api_key)
 
 
 if __name__ == '__main__':
