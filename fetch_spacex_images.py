@@ -5,8 +5,7 @@ Functions:
     create_arguments_parser()
     get_id_images_links(launch_id)
     get_ll_images_links()
-    download_images(images_links)
-    fetch_spacex_images()
+    get_spacex_images()
 """
 import argparse
 from file_processing import *
@@ -33,7 +32,7 @@ def get_ll_images_links():
     return ll_response.json()['links']['flickr']['original']
 
 
-def fetch_spacex_images():
+def get_spacex_images():
     parser = create_arguments_parser()
     arguments = parser.parse_args()
     launch_id = arguments.launch_id[0:]
@@ -47,4 +46,4 @@ def fetch_spacex_images():
 
 
 if __name__ == '__main__':
-    fetch_spacex_images()
+    get_spacex_images()
