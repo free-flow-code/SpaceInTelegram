@@ -1,7 +1,5 @@
-import requests
 import datetime
-from pathlib import Path
-import create_filename
+from file_processing import *
 
 
 def fetch_epic_images(nasa_api_key):

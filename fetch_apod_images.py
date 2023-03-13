@@ -1,6 +1,4 @@
-import requests
-from pathlib import Path
-import create_filename
+from file_processing import *
 
 
 def fetch_apod_images(nasa_api_key):

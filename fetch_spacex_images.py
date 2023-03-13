@@ -2,40 +2,49 @@
 If the launch ID is not specified, downloads the photo from the last launch.
 
 Functions:
-    get_spacex_images_links()
+    create_arguments_parser()
+    get_id_images_links(launch_id)
+    get_ll_images_links()
+    download_images(images_links)
     fetch_spacex_images()
 """
-import requests
-from pathlib import Path
-import create_filename
+import argparse
+from file_processing import *
 
 
-def get_spacex_images_links():
+def create_arguments_parser():
+    """Parse command-line arguments and return user-entered launch ID."""
+    parser = argparse.ArgumentParser(description='Download images of SpaceX launches')
+    parser.add_argument('launch_id', help='Enter launch ID', nargs='?', default=[''])
+    return parser
+
+
+def get_id_images_links(launch_id):
+    site = 'https://api.spacexdata.com/v5/launches/{}'
+    id_response = requests.get(site.format(launch_id))
+    id_response.raise_for_status()
+    return id_response.json()['links']['flickr']['original']
+
+
+def get_ll_images_links():
     latest_launch = 'https://api.spacexdata.com/v5/launches/latest'
-    past_launches = 'https://api.spacexdata.com/v5/launches/past'
-    id_launch = 'https://api.spacexdata.com/v5/launches/{}'
     ll_response = requests.get(latest_launch)
     ll_response.raise_for_status()
-    if not ll_response.json()['links']['flickr']['original']:
-        pl_response = requests.get(past_launches)
-        pl_response.raise_for_status()
-        for launch in pl_response.json():
-            id_response = requests.get(id_launch.format(launch['id']))
-            id_response.raise_for_status()
-            if id_response.json()['links']['flickr']['original']:
-                return id_response.json()['links']['flickr']['original']
-                break
-    else:
-        return ll_response.json()['links']['flickr']['original']
+    return ll_response.json()['links']['flickr']['original']
 
 
 def fetch_spacex_images():
-    """Downloads photos from the last SpaceX launch"""
-    Path('./image').mkdir(exist_ok=True)
-    images_links = get_spacex_images_links()
-    for link in images_links:
-        response = requests.get(link)
-        response.raise_for_status()
-        save_path = 'image/{}'.format(create_filename(link))
-        with open(save_path, 'wb') as file:
-            file.write(response.content)
+    parser = create_arguments_parser()
+    arguments = parser.parse_args()
+    launch_id = arguments.launch_id[0:]
+    if launch_id:
+        images_links = get_id_images_links(launch_id)
+        download_images(images_links)
+    else:
+        # ll - latest launch
+        images_links = get_ll_images_links()
+        download_images(images_links)
+
+
+if __name__ == '__main__':
+    fetch_spacex_images()
