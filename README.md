@@ -21,7 +21,8 @@ POSTING_DELAY="14400"
 ```
 Программа состоит из нескольких скриптов:
 
-###`fetch_spacex_images.py`
+#### `fetch_spacex_images.py`
+
 Загружает фотографии с сайта SpaceX.
 В качестве аргумента при запуске скрипта нужно указать id запуска.
 Если id запуска не указан, загружает фото с последнего запуска.
@@ -29,19 +30,22 @@ POSTING_DELAY="14400"
 python fetch_spacex_images.py 5eb87d47ffd86e000604b38a
 ```
 
-###`fetch_apod_images.py`
+#### `fetch_apod_images.py`
+
 Загружает фото Astronomy Picture of the Day [(APOD)](https://api.nasa.gov/#apod)
 ```
 python fetch_apod_images.py
 ```
-###`fetch_epic_images.py`
+#### `fetch_epic_images.py`
+
 Загружает фото Earth Polychromatic Imaging Camera [(EPIC)](https://api.nasa.gov/#epic)
 
 ```
 python fetch_epic_images.py
 ```
 
-###`telegram_bot.py`
+#### `telegram_bot.py`
+
 Публикует фото из директории `./image` в telegram-канал.
 В качестве аргумента при запуске скрипта нужно передать имя файла
 с изображением. Если оно не указано, публикует случайное фото:
@@ -49,7 +53,8 @@ python fetch_epic_images.py
 python telegram_bot.py AndromedaGalex_900.jpg
 ```
 
-###`deferred_posting.py`
+#### `deferred_posting.py`
+
 Публикует все фотографии из директории `./image` каждые 4 часа.
 Если все фото из директории опубликованы – он начинает публиковать их заново, перемешав фото в случайном порядке.
 Частоту публикации можно контролировать с помощью переменной среды (`.env` файл):
@@ -60,7 +65,8 @@ POSTING_DELAY="14400"
 ```
 python deferred_posting.py 14400
 ```
-###`file_processing.py`
+#### `file_processing.py`
+
 Файл с вспомогательными функциями, необходимыми для работы вышеперечисленных скриптов.
 
 Все загруженные фото хранятся в директории `./image`
