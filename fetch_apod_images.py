@@ -2,8 +2,10 @@ from dotenv import load_dotenv
 from file_processing import *
 
 
-def get_apod_images(nasa_api_key):
+def get_apod_images():
     """Downloads Astronomy Picture of the Day (APOD)"""
+    load_dotenv()
+    nasa_api_key = os.environ['NASA_API_KEY']
     apod_link = 'https://api.nasa.gov/planetary/apod'
     params = {'api_key': nasa_api_key,
               'count': 3}
@@ -17,6 +19,4 @@ def get_apod_images(nasa_api_key):
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    nasa_api_key = os.environ['NASA_API_KEY']
-    get_apod_images(nasa_api_key)
+    get_apod_images()

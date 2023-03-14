@@ -3,6 +3,7 @@
 Functions:
     create_filename(link)
     download_images(images_links, params=None)
+    list_image_files()
     get_random_image()
     """
 import os
@@ -28,7 +29,7 @@ def download_images(images_links, params=None):
                 file.write(response.content)
 
 
-def get_random_image():
+def list_image_files():
     all_files = []
     for file in os.listdir('image'):
         file_size = os.path.getsize('image/{}'.format(file))
@@ -36,5 +37,10 @@ def get_random_image():
             all_files.append(file)
         else:
             continue
+    return all_files
+
+
+def get_random_image():
+    all_files = list_image_files()
     shuffle(all_files)
     return all_files[0]

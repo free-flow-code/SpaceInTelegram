@@ -9,8 +9,8 @@ def main():
     load_dotenv()
     nasa_api_key = os.environ['NASA_API_KEY']
     get_spacex_images()
-    get_apod_images(nasa_api_key)
-    get_epic_images(nasa_api_key)
+    get_apod_images()
+    get_epic_images()
 
 
 if __name__ == '__main__':
