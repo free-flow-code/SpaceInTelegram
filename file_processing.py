@@ -9,11 +9,11 @@ def create_filename(link):
     return filename
 
 
-def download_images(images_links):
+def download_images(images_links, params=None):
     Path('./image').mkdir(exist_ok=True)
     if images_links:
         for link in images_links:
-            response = requests.get(link)
+            response = requests.get(link, params)
             response.raise_for_status()
             save_path = 'image/{}'.format(create_filename(link))
             with open(save_path, 'wb') as file:

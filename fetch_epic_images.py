@@ -1,13 +1,14 @@
+from dotenv import load_dotenv
 import datetime
 from file_processing import *
 
 
-def fetch_epic_images(nasa_api_key):
+def get_epic_images(nasa_api_key):
     """Downloads  Earth Polychromatic Imaging Camera (EPIC) photos"""
-    Path('./image').mkdir(exist_ok=True)
     all_images_link = 'https://api.nasa.gov/EPIC/api/natural/images'
     one_image_link = 'https://api.nasa.gov/EPIC/archive/natural/{}/png/{}'
     params = {'api_key': nasa_api_key}
+    images_links = []
     all_images_response = requests.get(all_images_link, params=params)
     all_images_response.raise_for_status()
     for image in all_images_response.json():
@@ -15,8 +16,11 @@ def fetch_epic_images(nasa_api_key):
         path = str(date).replace('-', '/')
         filename = image['image']+'.png'
         download_link = one_image_link.format(path, filename)
-        one_image_response = requests.get(download_link, params=params)
-        one_image_response.raise_for_status()
-        save_path = 'image/{}'.format(create_filename(link=download_link))
-        with open(save_path, 'wb') as file:
-            file.write(one_image_response.content)
+        images_links.append(download_link)
+    download_images(images_links, params)
+
+
+if __name__ == '__main__':
+    load_dotenv()
+    nasa_api_key = os.environ['NASA_API_KEY']
+    get_epic_images(nasa_api_key)
