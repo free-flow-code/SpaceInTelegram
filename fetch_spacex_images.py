@@ -35,7 +35,7 @@ def get_ll_images_links():
 def get_spacex_images():
     parser = create_arguments_parser()
     arguments = parser.parse_args()
-    launch_id = arguments.launch_id[0:]
+    launch_id = arguments.launch_id[0:0]
     if launch_id:
         images_links = get_id_images_links(launch_id)
         download_images(images_links)

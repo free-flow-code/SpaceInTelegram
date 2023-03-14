@@ -1,5 +1,13 @@
+"""Set of functions for working with files.
+
+Functions:
+    create_filename(link)
+    download_images(images_links, params=None)
+    get_random_image()
+    """
 import os
 import requests
+from random import shuffle
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -18,3 +26,15 @@ def download_images(images_links, params=None):
             save_path = 'image/{}'.format(create_filename(link))
             with open(save_path, 'wb') as file:
                 file.write(response.content)
+
+
+def get_random_image():
+    all_files = []
+    for file in os.listdir('image'):
+        file_size = os.path.getsize('image/{}'.format(file))
+        if file_size <= 20971520:
+            all_files.append(file)
+        else:
+            continue
+    shuffle(all_files)
+    return all_files[0]
