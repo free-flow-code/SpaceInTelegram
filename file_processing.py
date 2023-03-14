@@ -35,8 +35,6 @@ def list_image_files():
         file_size = os.path.getsize('image/{}'.format(file))
         if file_size <= 20971520:
             all_files.append(file)
-        else:
-            continue
     return all_files
 
 

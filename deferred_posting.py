@@ -19,29 +19,22 @@ def create_arguments_parser():
     return parser
 
 
-def tg_auto_posting():
+def send_delay_message():
     load_dotenv()
     delay = 14400
-    first_start = True
     try:
         delay = int(os.environ['POSTING_DELAY'])
     except KeyError:
         parser = create_arguments_parser()
         arguments = parser.parse_args()
-        delay = int(arguments.delay[0])
+        delay = arguments.delay(arguments.integers)
+    all_files = list_image_files()
     while True:
-        if first_start:
-            all_files = list_image_files()
-            for image in all_files:
-                post_image(image)
-                time.sleep(delay)
-            first_start = False
-        else:
-            shuffle(all_files)
-            for image in all_files:
-                post_image(image)
-                time.sleep(delay)
+        for image in all_files:
+            post_image(image)
+            time.sleep(delay)
+        shuffle(all_files)
 
 
 if __name__ == '__main__':
-    tg_auto_posting()
+    send_delay_message()
