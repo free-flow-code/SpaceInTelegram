@@ -1,6 +1,8 @@
 """Publishes all photos from the image directory every 4 hours.
+
 If all photos from the directory are published, the script starts publishing
-them again, shuffling the photos in random order."""
+them again, shuffling the photos in random order.
+Posting frequency can be controlled through an environment variable or passed as a command line argument."""
 import os
 import time
 from random import shuffle
