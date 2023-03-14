@@ -8,7 +8,7 @@ def get_apod_images():
     nasa_api_key = os.environ['NASA_API_KEY']
     apod_link = 'https://api.nasa.gov/planetary/apod'
     params = {'api_key': nasa_api_key,
-              'count': 3}
+              'count': 30}
     apod_response = requests.get(apod_link, params=params)
     apod_response.raise_for_status()
     images = apod_response.json()
