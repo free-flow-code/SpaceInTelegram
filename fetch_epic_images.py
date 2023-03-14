@@ -5,7 +5,6 @@ from file_processing import *
 
 def get_epic_images():
     """Downloads  Earth Polychromatic Imaging Camera (EPIC) photos"""
-    load_dotenv()
     nasa_api_key = os.environ['NASA_API_KEY']
     all_images_link = 'https://api.nasa.gov/EPIC/api/natural/images'
     one_image_link = 'https://api.nasa.gov/EPIC/archive/natural/{}/png/{}'
@@ -23,4 +22,5 @@ def get_epic_images():
 
 
 if __name__ == '__main__':
+    load_dotenv()
     get_epic_images()

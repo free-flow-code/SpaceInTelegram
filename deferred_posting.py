@@ -20,7 +20,6 @@ def create_arguments_parser():
 
 
 def send_delay_message():
-    load_dotenv()
     delay = 14400
     try:
         delay = int(os.environ['POSTING_DELAY'])
@@ -37,4 +36,5 @@ def send_delay_message():
 
 
 if __name__ == '__main__':
+    load_dotenv()
     send_delay_message()

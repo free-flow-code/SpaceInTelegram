@@ -15,7 +15,6 @@ def create_arguments_parser():
 
 
 def post_image(file_name=None):
-    load_dotenv()
     tg_token = os.environ['TG_TOKEN']
     bot = telegram.Bot(token=tg_token)
     if not file_name:
@@ -31,4 +30,5 @@ def post_image(file_name=None):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     post_image()

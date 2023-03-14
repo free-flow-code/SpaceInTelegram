@@ -4,7 +4,6 @@ from file_processing import *
 
 def get_apod_images():
     """Downloads Astronomy Picture of the Day (APOD)"""
-    load_dotenv()
     nasa_api_key = os.environ['NASA_API_KEY']
     apod_link = 'https://api.nasa.gov/planetary/apod'
     params = {'api_key': nasa_api_key,
@@ -19,4 +18,5 @@ def get_apod_images():
 
 
 if __name__ == '__main__':
+    load_dotenv()
     get_apod_images()
