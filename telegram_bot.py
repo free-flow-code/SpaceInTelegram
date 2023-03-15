@@ -25,14 +25,14 @@ def post_image(tg_token, chat_id, arguments, file_name=None):
             bot.send_photo(chat_id, photo=file)
 
 
-def main(arguments):
+def main():
     load_dotenv()
     tg_token = os.environ['TG_TOKEN']
     chat_id = int(os.environ['CHAT_ID'])
+    parser = create_arguments_parser()
+    arguments = parser.parse_args()
     post_image(tg_token, chat_id, arguments)
 
 
 if __name__ == '__main__':
-    parser = create_arguments_parser()
-    arguments = parser.parse_args()
-    main(arguments)
+    main()
