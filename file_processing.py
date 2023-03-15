@@ -31,6 +31,7 @@ def list_image_files():
     all_files = []
     for file in os.listdir('image'):
         file_size = os.path.getsize('image/{}'.format(file))
+        # The maximum file size for uploading to telegram 20 MB
         if file_size <= 20971520:
             all_files.append(file)
     return all_files
