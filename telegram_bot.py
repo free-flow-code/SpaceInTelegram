@@ -14,10 +14,8 @@ def create_arguments_parser():
     return parser
 
 
-def post_image(tg_token, chat_id, file_name=None):
+def post_image(tg_token, chat_id, arguments, file_name=None):
     bot = telegram.Bot(token=tg_token)
-    parser = create_arguments_parser()
-    arguments = parser.parse_args()
     if arguments.file_name:
         file_name = arguments.file_name
         with open('image/{}'.format(file_name), 'rb') as file:
@@ -27,12 +25,14 @@ def post_image(tg_token, chat_id, file_name=None):
             bot.send_photo(chat_id, photo=file)
 
 
-def main():
+def main(arguments):
     load_dotenv()
     tg_token = os.environ['TG_TOKEN']
     chat_id = int(os.environ['CHAT_ID'])
-    post_image(tg_token, chat_id)
+    post_image(tg_token, chat_id, arguments)
 
 
 if __name__ == '__main__':
-    main()
+    parser = create_arguments_parser()
+    arguments = parser.parse_args()
+    main(arguments)

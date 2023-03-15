@@ -15,30 +15,30 @@ from file_processing import list_image_files
 def create_arguments_parser():
     """Parse command-line arguments and return user-entered delay."""
     parser = argparse.ArgumentParser(description='Deferred posting photos to telegram')
-    parser.add_argument('delay', help='Enter time between posts', nargs='?', default=[''])
+    parser.add_argument('delay', help='Enter time between posts', type=int, nargs='?', default=None)
     return parser
 
 
-def send_delay_message(tg_token, chat_id, delay):
-    parser = create_arguments_parser()
-    arguments = parser.parse_args()
-    if arguments.delay(arguments.integers):
-        delay = arguments.delay(arguments.integers)
+def send_delay_message(tg_token, chat_id, delay, arguments):
+    if arguments.delay:
+        delay = arguments.delay
     all_files = list_image_files()
     while True:
         for image in all_files:
-            post_image(tg_token, chat_id, file_name=image)
+            post_image(tg_token, chat_id, arguments=argparse.Namespace(file_name=''), file_name=image)
             time.sleep(delay)
         shuffle(all_files)
 
 
-def main():
+def main(arguments):
     load_dotenv()
     tg_token = os.environ['TG_TOKEN']
     chat_id = int(os.environ['CHAT_ID'])
     delay = int(os.environ['POSTING_DELAY'])
-    send_delay_message(tg_token, chat_id, delay)
+    send_delay_message(tg_token, chat_id, delay, arguments)
 
 
 if __name__ == '__main__':
-    main()
+    parser = create_arguments_parser()
+    arguments = parser.parse_args()
+    main(arguments)

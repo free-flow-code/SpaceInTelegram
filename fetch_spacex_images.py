@@ -25,13 +25,13 @@ def get_spacex_images_links(launch_id):
     return ll_response.json()['links']['flickr']['original']
 
 
-def get_spacex_images():
-    parser = create_arguments_parser()
-    arguments = parser.parse_args()
+def get_spacex_images(arguments):
     launch_id = arguments.launch_id
     for image_link in get_spacex_images_links(launch_id):
         download_image(image_link)
 
 
 if __name__ == '__main__':
-    get_spacex_images()
+    parser = create_arguments_parser()
+    arguments = parser.parse_args()
+    get_spacex_images(arguments)
