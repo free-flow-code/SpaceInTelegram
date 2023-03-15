@@ -1,5 +1,7 @@
+import os
+import requests
 from dotenv import load_dotenv
-from file_processing import *
+from file_processing import download_image
 
 
 def get_apod_images(nasa_api_key):

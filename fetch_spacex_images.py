@@ -8,7 +8,8 @@ Functions:
     get_spacex_images()
 """
 import argparse
-from file_processing import *
+import requests
+from file_processing import download_image
 
 
 def create_arguments_parser():

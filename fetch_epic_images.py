@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
+import os
+import requests
 import datetime
-from file_processing import *
+from file_processing import download_image
 
 
 def get_epic_images(nasa_api_key):
