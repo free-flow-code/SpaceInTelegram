@@ -5,7 +5,7 @@ from file_processing import *
 def get_apod_images(nasa_api_key):
     """Downloads Astronomy Picture of the Day (APOD)"""
     apod_link = 'https://api.nasa.gov/planetary/apod'
-    number_download_images = 3
+    number_download_images = 30
     params = {'api_key': nasa_api_key,
               'count': number_download_images}
     apod_response = requests.get(apod_link, params=params)
