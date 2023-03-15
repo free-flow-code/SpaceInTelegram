@@ -10,19 +10,15 @@ from file_processing import get_random_image
 def create_arguments_parser():
     """Parse command-line arguments and return user-entered image file name."""
     parser = argparse.ArgumentParser(description='Publishes images to telegram channel')
-    parser.add_argument('file_name', help='Enter file name', nargs='?', default='')
+    parser.add_argument('file_name', help='Enter file name', nargs='?', default=get_random_image())
     return parser
 
 
-def post_image(tg_token, chat_id, arguments, file_name=None):
+def post_image(tg_token, chat_id, arguments):
     bot = telegram.Bot(token=tg_token)
-    if arguments.file_name:
-        file_name = arguments.file_name
-        with open('image/{}'.format(file_name), 'rb') as file:
-            bot.send_photo(chat_id, photo=file)
-    else:
-        with open('image/{}'.format(get_random_image()), 'rb') as file:
-            bot.send_photo(chat_id, photo=file)
+    file_name = arguments.file_name
+    with open('image/{}'.format(file_name), 'rb') as file:
+        bot.send_photo(chat_id, photo=file)
 
 
 def main():

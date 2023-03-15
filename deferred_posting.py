@@ -24,7 +24,7 @@ def send_delay_message(tg_token, chat_id, arguments):
     all_files = list_image_files()
     while True:
         for image in all_files:
-            post_image(tg_token, chat_id, arguments=argparse.Namespace(file_name=''), file_name=image)
+            post_image(tg_token, chat_id, arguments=argparse.Namespace(file_name=image))
             time.sleep(delay)
         shuffle(all_files)
 
