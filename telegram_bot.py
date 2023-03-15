@@ -14,21 +14,23 @@ def create_arguments_parser():
     return parser
 
 
-def post_image(file_name=None):
-    tg_token = os.environ['TG_TOKEN']
+def post_image(tg_token, chat_id, file_name=None):
     bot = telegram.Bot(token=tg_token)
-    if not file_name:
-        parser = create_arguments_parser()
-        arguments = parser.parse_args()
+    parser = create_arguments_parser()
+    arguments = parser.parse_args()
+    if arguments.file_name[0:0]:
         file_name = arguments.file_name[0:0]
-        if file_name:
-            bot.send_photo(-1001813053173, photo=open('image/{}'.format(file_name), 'rb'))
-        else:
-            bot.send_photo(-1001813053173, photo=open('image/{}'.format(get_random_image()), 'rb'))
+        bot.send_photo(chat_id, photo=open('image/{}'.format(file_name), 'rb'))
     else:
-        bot.send_photo(-1001813053173, photo=open('image/{}'.format(file_name), 'rb'))
+        bot.send_photo(chat_id, photo=open('image/{}'.format(get_random_image()), 'rb'))
+
+
+def main():
+    load_dotenv()
+    tg_token = os.environ['TG_TOKEN']
+    chat_id = int(os.environ['CHAT_ID'])
+    post_image(tg_token, chat_id)
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    post_image()
+    main()

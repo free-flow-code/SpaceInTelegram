@@ -3,9 +3,8 @@ import datetime
 from file_processing import *
 
 
-def get_epic_images():
+def get_epic_images(nasa_api_key):
     """Downloads  Earth Polychromatic Imaging Camera (EPIC) photos"""
-    nasa_api_key = os.environ['NASA_API_KEY']
     all_images_link = 'https://api.nasa.gov/EPIC/api/natural/images'
     one_image_link = 'https://api.nasa.gov/EPIC/archive/natural/{}/png/{}'
     params = {'api_key': nasa_api_key}
@@ -21,6 +20,11 @@ def get_epic_images():
     download_images(images_links, params)
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
-    get_epic_images()
+    nasa_api_key = os.environ['NASA_API_KEY']
+    get_epic_images(nasa_api_key)
+
+
+if __name__ == '__main__':
+    main()
