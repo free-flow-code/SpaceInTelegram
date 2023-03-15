@@ -6,16 +6,12 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
-def create_filename(link):
-    filename = os.path.split(urlparse(link).path)[1]
-    return filename
-
-
 def download_image(image_link, params=None):
     Path('./image').mkdir(exist_ok=True)
     response = requests.get(image_link, params)
     response.raise_for_status()
-    save_path = 'image/{}'.format(create_filename(image_link))
+    file_name = os.path.split(urlparse(image_link).path)[1]
+    save_path = 'image/{}'.format(file_name)
     with open(save_path, 'wb') as file:
         file.write(response.content)
 
