@@ -1,11 +1,4 @@
-"""Set of functions for working with files.
-
-Functions:
-    create_filename(link)
-    download_image(image_link, params=None)
-    list_image_files()
-    get_random_image()
-    """
+"""Set of functions for working with files."""
 import os
 import requests
 from random import shuffle
