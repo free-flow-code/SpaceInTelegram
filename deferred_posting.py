@@ -19,7 +19,7 @@ def create_arguments_parser():
     return parser
 
 
-def send_delay_message(delay):
+def send_delay_message(tg_token, chat_id, delay):
     parser = create_arguments_parser()
     arguments = parser.parse_args()
     if arguments.delay(arguments.integers):
@@ -27,15 +27,17 @@ def send_delay_message(delay):
     all_files = list_image_files()
     while True:
         for image in all_files:
-            post_image(file_name=image)
+            post_image(tg_token, chat_id, file_name=image)
             time.sleep(delay)
         shuffle(all_files)
 
 
 def main():
     load_dotenv()
+    tg_token = os.environ['TG_TOKEN']
+    chat_id = int(os.environ['CHAT_ID'])
     delay = int(os.environ['POSTING_DELAY'])
-    send_delay_message(delay)
+    send_delay_message(tg_token, chat_id, delay)
 
 
 if __name__ == '__main__':
