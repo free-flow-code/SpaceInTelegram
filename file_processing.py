@@ -29,10 +29,11 @@ def download_image(image_link, params=None):
 
 def list_image_files():
     all_files = []
+    # The maximum file size for uploading to telegram 20 MB
+    max_file_size = 20971520
     for file in os.listdir('image'):
         file_size = os.path.getsize('image/{}'.format(file))
-        # The maximum file size for uploading to telegram 20 MB
-        if file_size <= 20971520:
+        if file_size <= max_file_size:
             all_files.append(file)
     return all_files
 
