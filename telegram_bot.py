@@ -20,9 +20,11 @@ def post_image(tg_token, chat_id, file_name=None):
     arguments = parser.parse_args()
     if arguments.file_name[0:0]:
         file_name = arguments.file_name[0:0]
-        bot.send_photo(chat_id, photo=open('image/{}'.format(file_name), 'rb'))
+        with open('image/{}'.format(file_name), 'rb') as file:
+            bot.send_photo(chat_id, photo=file)
     else:
-        bot.send_photo(chat_id, photo=open('image/{}'.format(get_random_image()), 'rb'))
+        with open('image/{}'.format(get_random_image()), 'rb') as file:
+            bot.send_photo(chat_id, photo=file)
 
 
 def main():
