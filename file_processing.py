@@ -42,9 +42,3 @@ def get_random_image():
     all_files = list_image_files()
     shuffle(all_files)
     return all_files[0]
-
-
-def open_image(file_name):
-    with open('image/{}'.format(file_name)) as file:
-        image = file.read()
-    return image
