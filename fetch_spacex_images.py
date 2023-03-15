@@ -14,7 +14,7 @@ from file_processing import *
 def create_arguments_parser():
     """Parse command-line arguments and return user-entered launch ID."""
     parser = argparse.ArgumentParser(description='Download images of SpaceX launches')
-    parser.add_argument('launch_id', help='Enter launch ID', nargs='?', default=[''])
+    parser.add_argument('launch_id', help='Enter launch ID', nargs='?', default='')
     return parser
 
 
@@ -35,14 +35,14 @@ def get_ll_images_links():
 def get_spacex_images():
     parser = create_arguments_parser()
     arguments = parser.parse_args()
-    launch_id = arguments.launch_id[0:0]
+    launch_id = arguments.launch_id
     if launch_id:
-        images_links = get_id_images_links(launch_id)
-        download_images(images_links)
+        for image_link in get_id_images_links(launch_id):
+            download_image(image_link)
     else:
         # ll - latest launch
-        images_links = get_ll_images_links()
-        download_images(images_links)
+        for image_link in get_ll_images_links():
+            download_image(image_link)
 
 
 if __name__ == '__main__':

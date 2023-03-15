@@ -11,10 +11,8 @@ def get_apod_images(nasa_api_key):
     apod_response = requests.get(apod_link, params=params)
     apod_response.raise_for_status()
     images = apod_response.json()
-    images_links = []
     for image in images:
-        images_links.append(image['url'])
-    download_images(images_links, params)
+        download_image(image_link=image['url'], params=params)
 
 
 def main():

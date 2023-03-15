@@ -2,7 +2,7 @@
 
 Functions:
     create_filename(link)
-    download_images(images_links, params=None)
+    download_image(image_link, params=None)
     list_image_files()
     get_random_image()
     """
@@ -18,15 +18,13 @@ def create_filename(link):
     return filename
 
 
-def download_images(images_links, params=None):
+def download_image(image_link, params=None):
     Path('./image').mkdir(exist_ok=True)
-    if images_links:
-        for link in images_links:
-            response = requests.get(link, params)
-            response.raise_for_status()
-            save_path = 'image/{}'.format(create_filename(link))
-            with open(save_path, 'wb') as file:
-                file.write(response.content)
+    response = requests.get(image_link, params)
+    response.raise_for_status()
+    save_path = 'image/{}'.format(create_filename(image_link))
+    with open(save_path, 'wb') as file:
+        file.write(response.content)
 
 
 def list_image_files():
