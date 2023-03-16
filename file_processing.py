@@ -1,7 +1,6 @@
 """Set of functions for working with files."""
 import os
 import requests
-from random import shuffle
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -24,9 +23,3 @@ def list_image_files():
         if file_size <= max_telegram_file_size:
             all_files.append(file)
     return all_files
-
-
-def get_random_image():
-    all_files = list_image_files()
-    shuffle(all_files)
-    return all_files[0]

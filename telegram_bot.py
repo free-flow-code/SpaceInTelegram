@@ -1,16 +1,17 @@
 """Posts the specified photo to the channel.
 If “what” is not specified, publishes a random photo."""
 import os
+import random
 from dotenv import load_dotenv
 import telegram
 import argparse
-from file_processing import get_random_image
+from file_processing import list_image_files
 
 
 def create_arguments_parser():
     """Parse command-line arguments and return user-entered image file name."""
     parser = argparse.ArgumentParser(description='Publishes images to telegram channel')
-    parser.add_argument('file_name', help='Enter file name', nargs='?', default=get_random_image())
+    parser.add_argument('file_name', help='Enter file name', nargs='?', default=random.choice(list_image_files()))
     return parser
 
 
