@@ -18,10 +18,10 @@ def download_image(image_link, params=None):
 
 def list_image_files():
     all_files = []
-    max_size_telegram_file = 20971520
+    max_telegram_file_size = 20971520
     for file in os.listdir('image'):
         file_size = os.path.getsize('image/{}'.format(file))
-        if file_size <= max_size_telegram_file:
+        if file_size <= max_telegram_file_size:
             all_files.append(file)
     return all_files
 
